@@ -1,0 +1,35 @@
+# Colab preset for larger datasets (~100k rows)
+# Uses FAISS for faster similarity and safer one-hot settings.
+
+project_root: "."  # overridden in Colab via --project-root
+
+data:
+  raw_path: "data/raw/bridge_data.csv"
+  sheet_name: null
+  processed_dir: "data/processed"
+
+columns:
+  severity_target: "Severity"
+  retrofit_target: "Suggested_Retrofit"
+  exclude_features: ["Bridge_Name"]
+  case_display: ["Bridge_Name", "Failure_Type", "Suggested_Retrofit"]
+
+preprocessing:
+  svd_components: 50
+  onehot_min_frequency: 5
+  onehot_max_categories: 200
+
+training:
+  random_seed: 42
+  test_size: 0.2
+  severity_model: "auto"
+  retrofit_model: "off"
+  device: "auto"  # set to gpu if using XGBoost + CUDA
+
+similarity:
+  backend: "faiss"
+  n_neighbors: 20
+  vote_k: 5
+
+artifacts:
+  out_dir: "artifacts"

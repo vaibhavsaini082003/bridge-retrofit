@@ -1,0 +1,38 @@
+# Path settings
+project_root: "."  # set to your Drive folder in Colab, e.g. /content/drive/MyDrive/retrofit
+
+data:
+  raw_path: "data/raw/bridge_data.csv"    # .csv (recommended) or .xlsx
+  sheet_name: null                        # Excel only; null => first sheet
+  processed_dir: "data/processed"
+
+columns:
+  # Target columns in your dataset
+  severity_target: "Severity"
+  retrofit_target: "Suggested_Retrofit"
+
+  # Optional: columns to exclude from feature set (IDs, names, free-form notes)
+  exclude_features: ["Bridge_Name"]
+
+  # Columns to include in similarity output table (purely for display)
+  case_display: ["Bridge_Name", "Failure_Type", "Suggested_Retrofit"]
+
+preprocessing:
+  # Similarity embedding; set to 0 to disable dimensionality reduction
+  svd_components: 50
+  onehot_min_frequency: 2
+  onehot_max_categories: null  # set e.g. 200 to cap high-cardinality columns
+
+training:
+  random_seed: 42
+  test_size: 0.2
+  severity_model: "auto"       # auto | lgbm | logreg | rf
+  retrofit_model: "off"        # off | lgbm | logreg | rf
+
+similarity:
+  backend: "sklearn"  # sklearn | faiss
+  n_neighbors: 6
+  vote_k: 5
+
+artifacts:
+  out_dir: "artifacts"

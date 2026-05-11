@@ -1,0 +1,9 @@
+-r requirements.txt
+
+# Colab-friendly extras
+lightgbm>=4.0
+gradio>=4.0
+imbalanced-learn>=0.12
+matplotlib>=3.8
+faiss-cpu>=1.8.0
+xgboost>=2.0
